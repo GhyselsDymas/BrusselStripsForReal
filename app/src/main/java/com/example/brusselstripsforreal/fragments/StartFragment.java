@@ -27,9 +27,9 @@ public class StartFragment extends Fragment {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
-            Bitmap bmp = Bitmap.createBitmap(v.getDrawingCache());
-            int color = bmp.getPixel((int) event.getX(), (int) event.getY());
-            if (color == Color.TRANSPARENT)
+            Bitmap bmpmap = Bitmap.createBitmap(v.getDrawingCache());
+            int colormap = bmpmap.getPixel((int) event.getX(), (int) event.getY());
+            if (colormap == Color.TRANSPARENT)
                 return false;
             else {
                 Navigation.findNavController(v).navigate(R.id.action_startFragment_to_mapFragment3);
@@ -41,9 +41,9 @@ public class StartFragment extends Fragment {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
-            Bitmap bmp = Bitmap.createBitmap(v.getDrawingCache());
-            int color = bmp.getPixel((int) event.getX(), (int) event.getY());
-            if (color == Color.TRANSPARENT)
+            Bitmap bmplist = Bitmap.createBitmap(v.getDrawingCache());
+            int colorlist = bmplist.getPixel((int) event.getX(), (int) event.getY());
+            if (colorlist == Color.TRANSPARENT)
                 return false;
             else {
                 Navigation.findNavController(v).navigate(R.id.action_startFragment_to_listFragment2);
@@ -56,9 +56,9 @@ public class StartFragment extends Fragment {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
-            Bitmap bmp = Bitmap.createBitmap(v.getDrawingCache());
-            int color = bmp.getPixel((int) event.getX(), (int) event.getY());
-            if (color == Color.TRANSPARENT)
+            Bitmap bmpabout = Bitmap.createBitmap(v.getDrawingCache());
+            int colorabout = bmpabout.getPixel((int) event.getX(), (int) event.getY());
+            if (colorabout == Color.TRANSPARENT)
                 return false;
             else {
                 Navigation.findNavController(v).navigate(R.id.action_startFragment_to_aboutFragment2);
@@ -71,9 +71,9 @@ public class StartFragment extends Fragment {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
-            Bitmap bmp = Bitmap.createBitmap(v.getDrawingCache());
-            int color = bmp.getPixel((int) event.getX(), (int) event.getY());
-            if (color == Color.TRANSPARENT)
+            Bitmap bmppref = Bitmap.createBitmap(v.getDrawingCache());
+            int colorpref = bmppref.getPixel((int) event.getX(), (int) event.getY());
+            if (colorpref == Color.TRANSPARENT)
                 return false;
             else {
 
