@@ -23,7 +23,6 @@ public class StartFragment extends Fragment {
     private ImageView imageViewMap, imageViewList, imageViewAbout, imageViewPreferences;
     public View rootView;
 
-
     private View.OnTouchListener mapListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -33,9 +32,8 @@ public class StartFragment extends Fragment {
             if (color == Color.TRANSPARENT)
                 return false;
             else {
-                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_mapFragment2);
+                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_mapFragment3);
                 return true;}
-
         }
     };
 
