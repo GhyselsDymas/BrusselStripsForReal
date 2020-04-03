@@ -11,26 +11,10 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NavController navController;
-    private AppBarConfiguration appBarConfiguration;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        navController = Navigation.findNavController(this, R.id.nav_host);
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.startFragment).build();
-
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp() ;
     }
 
 }

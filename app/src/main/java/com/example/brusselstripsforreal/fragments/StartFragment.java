@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.brusselstripsforreal.R;
 
@@ -20,67 +21,40 @@ import com.example.brusselstripsforreal.R;
  */
 public class StartFragment extends Fragment {
 
-    private ImageView imageViewMap, imageViewList, imageViewAbout, imageViewPreferences;
+    private ImageView imageViewMap;
     public View rootView;
 
-    private View.OnTouchListener mapListener = new View.OnTouchListener() {
+    private View.OnTouchListener imageListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
-            Bitmap bmpmap = Bitmap.createBitmap(v.getDrawingCache());
-            int colormap = bmpmap.getPixel((int) event.getX(), (int) event.getY());
-            if (colormap == Color.TRANSPARENT)
-                return false;
-            else {
-                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_mapFragment3);
-                return true;}
-        }
-    };
+            Bitmap bmp = Bitmap.createBitmap(v.getDrawingCache());
+            int colorpref = bmp.getPixel((int) event.getX(), (int) event.getY());
 
-    private View.OnTouchListener listListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-
-            Bitmap bmplist = Bitmap.createBitmap(v.getDrawingCache());
-            int colorlist = bmplist.getPixel((int) event.getX(), (int) event.getY());
-            if (colorlist == Color.TRANSPARENT)
-                return false;
-            else {
+            if (colorpref == Color.RED){
                 Navigation.findNavController(v).navigate(R.id.action_startFragment_to_listFragment2);
-                return true;}
+                return true;
+            }
 
-        }
-    };
+            else if(colorpref == Color.GREEN){
+                Toast.makeText(getContext(), "GREEN", Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
-    private View.OnTouchListener aboutListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
+            else if(colorpref == Color.YELLOW){
+                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_mapFragment3);
+                return true;
+            }
 
-            Bitmap bmpabout = Bitmap.createBitmap(v.getDrawingCache());
-            int colorabout = bmpabout.getPixel((int) event.getX(), (int) event.getY());
-            if (colorabout == Color.TRANSPARENT)
-                return false;
-            else {
+            else if(colorpref == Color.BLUE){
                 Navigation.findNavController(v).navigate(R.id.action_startFragment_to_aboutFragment2);
-                return true;}
+                return true;
+            }
 
+            else {return false;}
         }
     };
 
-    private View.OnTouchListener preferenceListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-
-            Bitmap bmppref = Bitmap.createBitmap(v.getDrawingCache());
-            int colorpref = bmppref.getPixel((int) event.getX(), (int) event.getY());
-            if (colorpref == Color.TRANSPARENT)
-                return false;
-            else {
-
-                return true;}
-
-        }
-    };
 
     public StartFragment() {
         // Required empty public constructor
@@ -93,21 +67,9 @@ public class StartFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_start, container, false);
 
-        imageViewMap = rootView.findViewById(R.id.btn_maps);
+        imageViewMap = rootView.findViewById(R.id.color_img);
         imageViewMap.setDrawingCacheEnabled(true);
-        imageViewMap.setOnTouchListener(mapListener);
-
-        imageViewList = rootView.findViewById(R.id.btn_list);
-        imageViewList.setDrawingCacheEnabled(true);
-        imageViewList.setOnTouchListener(listListener);
-
-        imageViewAbout = rootView.findViewById(R.id.btn_about);
-        imageViewAbout.setDrawingCacheEnabled(true);
-        imageViewAbout.setOnTouchListener(aboutListener);
-
-        imageViewPreferences = rootView.findViewById(R.id.btn_setting);
-        imageViewPreferences.setDrawingCacheEnabled(true);
-        imageViewPreferences.setOnTouchListener(preferenceListener);
+        imageViewMap.setOnTouchListener(imageListener);
 
         return rootView;
     }
