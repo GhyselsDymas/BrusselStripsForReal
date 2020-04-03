@@ -7,10 +7,10 @@
     tools:context=".fragments.StartFragment">
 
     <ImageView
-        android:id="@+id/button_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/eindwerk_scherm_groote_test_2"
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/homepage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
