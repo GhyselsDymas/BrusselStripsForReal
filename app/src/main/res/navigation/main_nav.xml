@@ -47,5 +47,12 @@
         <action
             android:id="@+id/action_startFragment_to_mapFragment3"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_settingsFrangment"
+            app:destination="@id/settingsFrangment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFrangment"
+        android:name="com.example.brusselstripsforreal.fragments.SettingsFrangment"
+        android:label="SettingsFrangment" />
 </navigation>

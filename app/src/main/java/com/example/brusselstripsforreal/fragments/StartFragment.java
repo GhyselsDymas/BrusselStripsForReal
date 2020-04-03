@@ -37,7 +37,7 @@ public class StartFragment extends Fragment {
             }
 
             else if(colorpref == Color.GREEN){
-                Toast.makeText(getContext(), "GREEN", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_settingsFrangment);
                 return true;
             }
 
