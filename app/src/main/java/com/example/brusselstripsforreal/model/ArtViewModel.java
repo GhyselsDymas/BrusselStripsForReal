@@ -1,7 +1,10 @@
 package com.example.brusselstripsforreal.model;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,14 +18,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//TODO Extend AndroidViewModel instead
-public class ArtViewModel extends ViewModel {
+public class ArtViewModel extends AndroidViewModel {
     private MutableLiveData<ComicArt> comicArtList;
     public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);
 
-    public ArtViewModel(){this.comicArtList = new MutableLiveData<>();
+    public ArtViewModel(@NonNull Application application) {
+        super(application);
+        this.comicArtList = new MutableLiveData<>();
     }
-
     public MutableLiveData<ComicArt> getComicArtList() {
         fetchart();
         return comicArtList;
@@ -50,19 +53,23 @@ public class ArtViewModel extends ViewModel {
                     while (i < arraySize){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         JSONObject fields = jsonObject.getJSONObject("fields");
+                        JSONObject geometry = jsonObject.getJSONObject("geometry");
+                        JSONObject photo = fields.getJSONObject("photo");
 
                         //TODO moet overeenkomen met JSON
                         ComicArt currentArt = new ComicArt(
-                                jsonObject.getString("Photo"),
+                                (photo.has("id"))?photo.getString("id"):"unknown",
                                 (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
-                                jsonObject.getString("Author_s"),
-                                jsonObject.getString("Geocoordinates")
+                                (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
+                                (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",
+                                (jsonObject.has("recordid"))?jsonObject.getString("recordid"):"unknown"
                         );
 
                         //TODO insert in database
 
                         i++;
                     }
+
                 } catch (IOException e) {
                     e.printStackTrace();
 

@@ -9,8 +9,6 @@ public class ComicArt {
 
     private String imageURL, artTitle, artAuthor, coordinate, id;
 
-
-
     public ComicArt(String imageURL, String artTitle, String artAuthor, String coordinate, String id) {
         this.imageURL = imageURL;
         this.artTitle = artTitle;
