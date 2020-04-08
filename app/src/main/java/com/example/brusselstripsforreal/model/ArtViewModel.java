@@ -55,7 +55,10 @@ public class ArtViewModel extends ViewModel {
                 ArrayAdapter.add(currentArt);
                 i++;
             }
-        } catch (IOException | JSONException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
