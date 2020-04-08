@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,22 +33,22 @@ public class StartFragment extends Fragment {
             int colorpref = bmp.getPixel((int) event.getX(), (int) event.getY());
 
             if (colorpref == Color.RED){
-                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_listFragment2);
+                performNav(v,R.id.action_startFragment_to_listFragment2, null );
                 return true;
             }
 
             else if(colorpref == Color.GREEN){
-                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_settingsFrangment);
+                performNav(v,R.id.action_startFragment_to_settingsFrangment, null );
                 return true;
             }
 
             else if(colorpref == Color.YELLOW){
-                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_mapFragment3);
+                performNav(v,R.id.action_startFragment_to_mapFragment3, null );
                 return true;
             }
 
             else if(colorpref == Color.BLUE){
-                Navigation.findNavController(v).navigate(R.id.action_startFragment_to_aboutFragment2);
+                performNav(v,R.id.action_startFragment_to_aboutFragment2, null );
                 return true;
             }
 
@@ -60,7 +61,6 @@ public class StartFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +71,16 @@ public class StartFragment extends Fragment {
         imageViewMap.setDrawingCacheEnabled(true);
         imageViewMap.setOnTouchListener(imageListener);
 
+
         return rootView;
+    }
+
+    public void performNav(View v, int id, Bundle data) {
+        try {
+            Navigation.findNavController(v).navigate(id, data);
+        }catch (Exception e) {
+            Log.e("Navigation", "navigatie crash, TODO");
+            Log.e("Navigation", e.getMessage());
+        }
     }
 }

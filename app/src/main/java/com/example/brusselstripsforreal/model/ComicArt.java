@@ -1,5 +1,6 @@
 package com.example.brusselstripsforreal.model;
-
+//TODO make this an entity
+//TODO add id
 public class ComicArt {
 
     private String imageURL, artTitle, artAuthor, coordinates;

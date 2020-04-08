@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+//TODO Extend AndroidViewModel instead
 public class ArtViewModel extends ViewModel {
     private MutableLiveData<ComicArt> comicArtList;
     public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);
@@ -28,39 +29,47 @@ public class ArtViewModel extends ViewModel {
     }
 
     private void fetchart() {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
-                .get()
-                .build();
+        threadExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url("https://bruxellesdata.opendatasoft.com/api/records/1.0/search/?dataset=comic-book-route&rows=58")
+                        .get()
+                        .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-            String artData = response.body().string();
-            JSONArray jsonArray = new JSONArray(artData);
+                try {
+                    Response response = client.newCall(request).execute();
+                    String artData = response.body().string();
+                    JSONObject rawData = new JSONObject(artData);
+                    JSONArray jsonArray = rawData.getJSONArray("records");
 
-            int arraySize = jsonArray.length();
-            int i = 0;
+                    int arraySize = jsonArray.length();
+                    int i = 0;
 
-            while (i < arraySize){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    while (i < arraySize){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONObject fields = jsonObject.getJSONObject("fields");
 
-                ComicArt currentArt = new ComicArt(
-                        jsonObject.getString("Photo"),
-                        jsonObject.getString("Character_s"),
-                        jsonObject.getString("Author_s"),
-                        jsonObject.getString("Geocoordinates")
-                );
+                        //TODO moet overeenkomen met JSON
+                        ComicArt currentArt = new ComicArt(
+                                jsonObject.getString("Photo"),
+                                (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
+                                jsonObject.getString("Author_s"),
+                                jsonObject.getString("Geocoordinates")
+                        );
 
-                ArrayAdapter.add(currentArt);
-                i++;
+                        //TODO insert in database
+
+                        i++;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        });
     }
 }
