@@ -1,14 +1,13 @@
 package com.example.brusselstripsforreal.model;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -43,16 +42,22 @@ public class ArtViewModel extends ViewModel {
             int arraySize = jsonArray.length();
             int i = 0;
 
-            while (i< arraySize){
+            while (i < arraySize){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                ComicArt currentComicArt = new ComicArt(
-                        jsonObject.getString())
+                ComicArt currentArt = new ComicArt(
+                        jsonObject.getString("Photo"),
+                        jsonObject.getString("Character_s"),
+                        jsonObject.getString("Author_s"),
+                        jsonObject.getString("Geocoordinates")
+                );
+
+                ArrayAdapter.add(currentArt);
+                i++;
             }
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
 
     }
 }
