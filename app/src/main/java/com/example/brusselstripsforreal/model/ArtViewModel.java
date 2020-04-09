@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,6 +31,18 @@ public class ArtViewModel extends AndroidViewModel {
         fetchart();
         return comicArtList;
     }
+
+
+    public MutableLiveData<ComicArt> getComicArt() {
+        fetchart();
+        return comicArtList;
+    }
+
+    public List<ComicArt> getAllArt() {
+        return ComicArt.getSharedInstance(getApplication()).ComicArtDAO().getAllCb();
+    }
+
+
 
     private void fetchart() {
         threadExecutor.execute(new Runnable() {
