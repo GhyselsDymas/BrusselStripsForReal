@@ -21,8 +21,9 @@ import com.example.brusselstripsforreal.R;
 import com.example.brusselstripsforreal.model.ComicArt;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
+ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
 
 
     public class ComicViewHolder extends RecyclerView.ViewHolder {
@@ -67,6 +68,9 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         //TODO Rijen opvullen
         ComicArt c = items.get(position);
         holder.tvArtAuthor.setText(c.getArtAuthor());
+        holder.tvArtTitle.setText(c.getArtTitle());
+       // holder.ivArt.setImageU();
+        //Picasso.get().load("https://opendata.brussel.be/explore/dataset/striproute0/files/"+c.getImageURL()+"/download").into(holder.ivArt);
     }
 
 
@@ -75,7 +79,14 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         int ComicArtSize = items.size();
         return  ComicArtSize;
 }
+    public ComicAdapter(){
+        items = new ArrayList<>();
+    }
+    public void addItems(List<ComicArt> comicart ){
+        items.clear();
+        items.addAll(comicart);
 
+    }
 
 }
 

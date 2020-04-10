@@ -16,8 +16,8 @@
         android:background="@drawable/listcard">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="171dp"
-            android:layout_height="64dp"
+            android:layout_width="250dp"
+            android:layout_height="71dp"
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="6dp"
@@ -37,6 +37,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginRight="6dp"
+                android:gravity="right"
                 android:text="Art title PH"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +54,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginRight="6dp"
+                android:gravity="right"
                 android:text="Author PH"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -16,17 +16,16 @@ public abstract class ArtDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "artDatabase.db";
     private static ArtDatabase instance;
-    //static final ExecutorService databasewriteExecutor =
-            //Executors.newFixedThreadPool(4);
+    static final ExecutorService databasewriteExecutor = Executors.newFixedThreadPool(4);
 
     public static ArtDatabase getSharedInstance(Context context){
         if(instance == null) {
             instance = create(context);
         }return instance;
     }
-    //allowmainThreadqueries is enkel om te testen, vana
+
     private static ArtDatabase create( final Context context) {
-        return Room.databaseBuilder(context, ArtDatabase.class,DB_NAME).allowMainThreadQueries().build();
+        return Room.databaseBuilder(context, ArtDatabase.class,DB_NAME).build();
 
     }
     //public abstract ArtDao getRepoDao

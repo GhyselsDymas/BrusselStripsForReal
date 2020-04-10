@@ -78,7 +78,7 @@ public class ArtViewModel extends AndroidViewModel {
 
 
                         ComicArt currentArt = new ComicArt(
-                                (jsonObject.has("id"))?photo.getString("id"):"unknown",
+                                (photo.has("id"))?photo.getString("id"):"unknown",
                                 (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
                                 (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
                                 (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",

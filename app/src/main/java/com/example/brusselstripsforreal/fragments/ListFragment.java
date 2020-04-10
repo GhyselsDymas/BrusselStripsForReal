@@ -63,6 +63,7 @@ public class ListFragment extends Fragment {
             @Override
             public void onChanged(List<ComicArt> comicArts) {
                 //TODO pass list to adapter
+                adapter.addItems(comicArts);
                 adapter.notifyDataSetChanged();
             }
         });
