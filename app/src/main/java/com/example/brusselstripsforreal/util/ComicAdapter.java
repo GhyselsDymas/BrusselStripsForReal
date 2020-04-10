@@ -28,7 +28,6 @@ import java.util.List;
 
     public class ComicViewHolder extends RecyclerView.ViewHolder {
         final TextView tvArtTitle, tvArtAuthor;
-        final ImageView ivArt;
         final View.OnClickListener ArtDetailListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +42,6 @@ import java.util.List;
             super(itemView);
             tvArtTitle = itemView.findViewById(R.id.art_title_tv);
             tvArtAuthor = itemView.findViewById(R.id.art_author_tv);
-            ivArt = itemView.findViewById(R.id.art_iv);
         }
     }
     private  ArrayList<ComicArt> itemsComics;
