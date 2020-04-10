@@ -1,10 +1,13 @@
 package com.example.brusselstripsforreal.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.brusselstripsforreal.DAO.ArtDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +29,7 @@ public class ArtViewModel extends AndroidViewModel {
     public ArtViewModel(@NonNull Application application) {
         super(application);
         this.comicArtList = new MutableLiveData<>();
+        System.out.println(getAllArt());
     }
     public MutableLiveData<ComicArt> getComicArtList() {
         fetchart();
@@ -39,12 +43,25 @@ public class ArtViewModel extends AndroidViewModel {
     }
 
     public List<ComicArt> getAllArt() {
-        return ComicArt.getSharedInstance(getApplication()).ComicArtDAO().getAllCb();
+        return ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().getAllComicArt();
+    }
+
+    public void insertAllArt(ComicArt comicArt) {
+        ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().insertComicArt(comicArt);
+    }
+
+    public void updateAllArt(ComicArt comicArt) {
+        ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().updateComicArt(comicArt);
+    }
+    public ComicArt findArtById(String id) {
+        return ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().findById(id);
     }
 
 
-
     private void fetchart() {
+
+
+
         threadExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -82,6 +99,7 @@ public class ArtViewModel extends AndroidViewModel {
 
                         i++;
                     }
+
 
                 } catch (IOException e) {
                     e.printStackTrace();

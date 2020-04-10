@@ -15,12 +15,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.brusselstripsforreal.DAO.ArtDatabase;
+import com.example.brusselstripsforreal.DAO.ComicArtDAO;
 import com.example.brusselstripsforreal.R;
+import com.example.brusselstripsforreal.model.ArtViewModel;
+import com.example.brusselstripsforreal.model.ComicArt;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class StartFragment extends Fragment {
+
 
     private ImageView imageViewMap;
     public View rootView;
@@ -70,6 +75,7 @@ public class StartFragment extends Fragment {
         imageViewMap = rootView.findViewById(R.id.color_img);
         imageViewMap.setDrawingCacheEnabled(true);
         imageViewMap.setOnTouchListener(imageListener);
+
 
 
         return rootView;

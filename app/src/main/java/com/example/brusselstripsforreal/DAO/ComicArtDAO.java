@@ -22,4 +22,6 @@ public interface ComicArtDAO {
     @Query("SELECT * FROM ComicArt")
     List<ComicArt> getAllComicArt();
 
+    @Query("SELECT * FROM ComicArt WHERE id LIKE :id")
+    ComicArt findById(String id);
 }

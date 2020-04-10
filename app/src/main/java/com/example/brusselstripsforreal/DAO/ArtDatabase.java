@@ -1,10 +1,12 @@
-package com.example.brusselstripsforreal.model;
+package com.example.brusselstripsforreal.DAO;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
+import com.example.brusselstripsforreal.model.ComicArt;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,7 +19,7 @@ public abstract class ArtDatabase extends RoomDatabase {
     //static final ExecutorService databasewriteExecutor =
             //Executors.newFixedThreadPool(4);
 
-    public static ArtDatabase getInstance(Context context){
+    public static ArtDatabase getSharedInstance(Context context){
         if(instance == null) {
             instance = create(context);
         }return instance;
@@ -28,4 +30,7 @@ public abstract class ArtDatabase extends RoomDatabase {
 
     }
     //public abstract ArtDao getRepoDao
+    public abstract ComicArtDAO comicArtDAO();
+
+    // public static ExecutorService dbExecutor = Executors.newFixedThreadPool(4);
 }
