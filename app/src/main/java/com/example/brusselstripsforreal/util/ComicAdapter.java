@@ -50,6 +50,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
     public ComicAdapter (FragmentActivity fragmentActivity) {
         itemsComics = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     @NonNull
@@ -64,6 +65,8 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
     @Override
     public void onBindViewHolder(@NonNull ComicViewHolder holder, int position) {
         //TODO Rijen opvullen
+        ComicArt c = items.get(position);
+        holder.tvArtAuthor.setText(c.getArtAuthor());
     }
 
 

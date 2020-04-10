@@ -11,26 +11,27 @@ import java.io.Serializable;
 @Entity
 public class ComicArt implements Serializable {
 
-    private String imageURL, artTitle, artAuthor, coordinate, id;
-
-    public int getComicArtId() {
-        return comicArtId;
-    }
-
-    public void setComicArtId(int comicArtId) {
-        this.comicArtId = comicArtId;
-    }
 
     @NonNull
     @PrimaryKey(autoGenerate = false)
-    private int comicArtId;
+    private String comicArtId;
+    private String imageURL, artTitle, artAuthor, coordinate, id;
 
     public ComicArt(String imageURL, String artTitle, String artAuthor, String coordinate, String id) {
         this.imageURL = imageURL;
         this.artTitle = artTitle;
         this.artAuthor = artAuthor;
         this.coordinate = coordinate;
-        this.id = id;
+        this.comicArtId = id;
+    }
+
+    @NonNull
+    public String getComicArtId() {
+        return comicArtId;
+    }
+
+    public void setComicArtId(@NonNull String comicArtId) {
+        this.comicArtId = comicArtId;
     }
 
     public String getCoordinate() { return coordinate; }
@@ -63,6 +64,17 @@ public class ComicArt implements Serializable {
         this.artAuthor = artAuthor;
     }
 
+    @Override
+    public String toString() {
+        return "ComicArt{" +
+                "imageURL='" + imageURL + '\'' +
+                ", artTitle='" + artTitle + '\'' +
+                ", artAuthor='" + artAuthor + '\'' +
+                ", coordinate='" + coordinate + '\'' +
+                ", id='" + id + '\'' +
+                ", comicArtId=" + comicArtId +
+                '}';
+    }
 }
 
 

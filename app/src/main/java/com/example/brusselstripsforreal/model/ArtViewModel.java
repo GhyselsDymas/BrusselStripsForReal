@@ -1,10 +1,12 @@
 package com.example.brusselstripsforreal.model;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.brusselstripsforreal.DAO.ArtDatabase;
@@ -23,27 +25,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ArtViewModel extends AndroidViewModel {
-    private MutableLiveData<ComicArt> comicArtList;
+
     public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);
+    Context context;
 
     public ArtViewModel(@NonNull Application application) {
         super(application);
-        this.comicArtList = new MutableLiveData<>();
-        System.out.println(getAllArt());
+        this.context = application;
     }
-    public MutableLiveData<ComicArt> getComicArtList() {
+
+    public LiveData<List<ComicArt>> getComicArt() {
         fetchart();
-        return comicArtList;
-    }
-
-
-    public MutableLiveData<ComicArt> getComicArt() {
-        fetchart();
-        return comicArtList;
-    }
-
-    public List<ComicArt> getAllArt() {
-        return ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().getAllComicArt();
+        return ArtDatabase.getSharedInstance(context).comicArtDAO().getAllComicArt();
     }
 
     public void insertAllArt(ComicArt comicArt) {
@@ -59,9 +52,6 @@ public class ArtViewModel extends AndroidViewModel {
 
 
     private void fetchart() {
-
-
-
         threadExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -84,19 +74,19 @@ public class ArtViewModel extends AndroidViewModel {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         JSONObject fields = jsonObject.getJSONObject("fields");
                         JSONObject geometry = jsonObject.getJSONObject("geometry");
-                        JSONObject photo = fields.getJSONObject("photo");
+                        JSONObject photo = (fields.has("photo"))?fields.getJSONObject("photo"):new JSONObject();
 
-                        //TODO moet overeenkomen met JSON
+
                         ComicArt currentArt = new ComicArt(
-                                (photo.has("id"))?photo.getString("id"):"unknown",
+                                (jsonObject.has("id"))?photo.getString("id"):"unknown",
                                 (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
                                 (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
                                 (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",
                                 (jsonObject.has("recordid"))?jsonObject.getString("recordid"):"unknown"
                         );
 
-                        //TODO insert in database
-
+                        if(ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().findById(currentArt.getComicArtId()) == null)
+                            insertAllArt(currentArt);
                         i++;
                     }
 

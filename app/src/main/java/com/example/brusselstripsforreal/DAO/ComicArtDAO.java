@@ -1,6 +1,7 @@
 package com.example.brusselstripsforreal.DAO;
 
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -20,8 +21,8 @@ public interface ComicArtDAO {
     void updateComicArt(ComicArt comicArt);
 
     @Query("SELECT * FROM ComicArt")
-    List<ComicArt> getAllComicArt();
+    LiveData<List<ComicArt>> getAllComicArt();
 
-    @Query("SELECT * FROM ComicArt WHERE id LIKE :id")
+    @Query("SELECT * FROM ComicArt WHERE comicArtId LIKE :id")
     ComicArt findById(String id);
 }
