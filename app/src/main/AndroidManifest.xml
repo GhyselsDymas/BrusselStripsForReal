@@ -20,7 +20,7 @@
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="com.google.android.gms:play-services-maps:17.0.0'"/>
+            android:value="AIzaSyAOUim48fqkwJvqsLienBRFJjKXvw2ypeI"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

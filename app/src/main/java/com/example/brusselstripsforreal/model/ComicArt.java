@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 @Entity
@@ -16,6 +18,9 @@ public class ComicArt implements Serializable {
     @PrimaryKey(autoGenerate = false)
     private String comicArtId;
     private String imageURL, artTitle, artAuthor, coordinate, id;
+
+
+
 
     public ComicArt(String imageURL, String artTitle, String artAuthor, String coordinate, String id) {
         this.imageURL = imageURL;
@@ -34,9 +39,13 @@ public class ComicArt implements Serializable {
         this.comicArtId = comicArtId;
     }
 
-    public String getCoordinate() { return coordinate; }
+    public String getCoordinate() {
+        return coordinate;
+    }
 
-    public void setCoordinate(String coordinate) { this.coordinate = coordinate; }
+    public void setCoordinate(String coordinate) {
+        this.coordinate = coordinate;
+    }
 
     public String getId() { return id; }
 
@@ -63,6 +72,9 @@ public class ComicArt implements Serializable {
     public void setArtAuthor(String artAuthor) {
         this.artAuthor = artAuthor;
     }
+
+
+
 
     @Override
     public String toString() {

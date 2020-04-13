@@ -2,12 +2,10 @@ package com.example.brusselstripsforreal.model;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.brusselstripsforreal.DAO.ArtDatabase;
 
@@ -24,6 +22,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
 public class ArtViewModel extends AndroidViewModel {
 
     public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);
@@ -36,7 +35,7 @@ public class ArtViewModel extends AndroidViewModel {
 
     public LiveData<List<ComicArt>> getComicArt() {
         fetchart();
-        return ArtDatabase.getSharedInstance(context).comicArtDAO().getAllComicArt();
+        return ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().getAllComicArt();
     }
 
     public void insertAllArt(ComicArt comicArt) {
@@ -73,7 +72,7 @@ public class ArtViewModel extends AndroidViewModel {
                     while (i < arraySize){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         JSONObject fields = jsonObject.getJSONObject("fields");
-                        JSONObject geometry = jsonObject.getJSONObject("geometry");
+                        JSONObject geometry = jsonObject.getJSONObject("coordinates");
                         JSONObject photo = (fields.has("photo"))?fields.getJSONObject("photo"):new JSONObject();
 
 
@@ -83,6 +82,8 @@ public class ArtViewModel extends AndroidViewModel {
                                 (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
                                 (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",
                                 (jsonObject.has("recordid"))?jsonObject.getString("recordid"):"unknown"
+
+
                         );
 
                         if(ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().findById(currentArt.getComicArtId()) == null)
@@ -100,4 +101,5 @@ public class ArtViewModel extends AndroidViewModel {
             }
         });
     }
+
 }

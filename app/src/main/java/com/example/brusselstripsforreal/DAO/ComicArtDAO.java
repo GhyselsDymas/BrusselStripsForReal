@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.brusselstripsforreal.model.ComicArt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
