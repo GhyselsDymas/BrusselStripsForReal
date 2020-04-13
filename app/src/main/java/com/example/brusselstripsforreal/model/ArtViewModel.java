@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,6 +26,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ArtViewModel extends AndroidViewModel {
+
+
 
     public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);
     Context context;
@@ -63,32 +66,37 @@ public class ArtViewModel extends AndroidViewModel {
 
                 try {
                     Response response = client.newCall(request).execute();
+
                     String artData = response.body().string();
+
                     JSONObject rawData = new JSONObject(artData);
                     JSONArray jsonArray = rawData.getJSONArray("records");
 
-                    int arraySize = jsonArray.length();
-                    int i = 0;
+                  //  int arraySize = jsonArray.length();
+                 //   int i = 0;
 
-                    while (i < arraySize){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        JSONObject fields = jsonObject.getJSONObject("fields");
-                        JSONObject geometry = jsonObject.getJSONObject("geometry");
-                        JSONObject photo = (fields.has("photo"))?fields.getJSONObject("photo"):new JSONObject();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String jsonComicArtID = jsonArray.getJSONObject(i).getString("recordid");
+                        JSONObject jsonComicArt = jsonArray.getJSONObject(i).getJSONObject("fields");
+                    final ComicArt currentArt = new ComicArt(
+                            jsonComicArtID,
+                            (jsonComicArt.has("auteur_s")) ? jsonComicArt.getString("auteur_s") : "Unknown author",
+                            (jsonComicArt.has("photo")) ? jsonComicArt.getJSONObject("photo").getString("filename") : "No Art available!",
+                            (jsonComicArt.has("photo")) ? jsonComicArt.getJSONObject("photo").getString("id") : "No Art available!",
+                            (jsonComicArt.has("personnage_s")) ? jsonComicArt.getString("personnage_s") : "Unknown pesonnage"
+                    );
 
-
-                        ComicArt currentArt = new ComicArt(
-                                (photo.has("id"))?photo.getString("id"):"unknown",
-                                (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
-                                (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
-                                (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",
-                                (jsonObject.has("recordid"))?jsonObject.getString("recordid"):"unknown"
-                        );
-
-                        if(ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().findById(currentArt.getComicArtId()) == null)
-                            insertAllArt(currentArt);
+                        ArtDatabase.databaseWriteExecutor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(findArtById(currentArt.getComicArtId())== null){
+                                    insertAllArt(currentArt);
+                                }
+                            }
+                        });
                         i++;
                     }
+
 
 
                 } catch (IOException e) {
@@ -101,3 +109,19 @@ public class ArtViewModel extends AndroidViewModel {
         });
     }
 }
+//while (i < arraySize){
+// JSONObject jsonObject = jsonArray.getJSONObject(i);
+// JSONObject fields = jsonObject.getJSONObject("fields");
+// JSONObject geometry = jsonObject.getJSONObject("geometry");
+// JSONObject photo = (fields.has("photo"))?fields.getJSONObject("photo"):new JSONObject();
+
+
+// final ComicArt currentArt = new ComicArt(
+
+// (photo.has("id"))?photo.getJSONObject("id").getString("id"):"unknown",
+
+// (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
+// (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
+// (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",
+// (jsonObject.has("recordid"))?jsonObject.getString("recordid"):"unknown"
+//  );

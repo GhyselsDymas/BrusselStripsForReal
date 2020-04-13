@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,9 @@ public class ListFragment extends Fragment {
     public ListFragment() {
 
     }
+
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {

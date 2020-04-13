@@ -5,12 +5,15 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ListFragment" >
+    android:background="#252121"
+    android:hapticFeedbackEnabled="true"
+    tools:context=".fragments.ListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/comicArt_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#252121"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

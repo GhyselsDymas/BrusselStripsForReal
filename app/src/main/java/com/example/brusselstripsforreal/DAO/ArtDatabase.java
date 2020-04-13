@@ -16,7 +16,7 @@ public abstract class ArtDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "artDatabase.db";
     private static ArtDatabase instance;
-    static final ExecutorService databasewriteExecutor = Executors.newFixedThreadPool(4);
+   public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
 
     public static ArtDatabase getSharedInstance(Context context){
         if(instance == null) {
