@@ -20,8 +20,6 @@ public class ComicArt implements Serializable {
     private String imageURL, artTitle, artAuthor, coordinate, id;
 
 
-
-
     public ComicArt(String imageURL, String artTitle, String artAuthor, String coordinate, String id) {
         this.imageURL = imageURL;
         this.artTitle = artTitle;
@@ -39,6 +37,7 @@ public class ComicArt implements Serializable {
         this.comicArtId = comicArtId;
     }
 
+    //binnengetrokken als string dus haakjes moeten weg
     public String getCoordinate() {
         return coordinate;
     }
@@ -47,9 +46,13 @@ public class ComicArt implements Serializable {
         this.coordinate = coordinate;
     }
 
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getArtTitle() {
         return artTitle;
@@ -67,13 +70,13 @@ public class ComicArt implements Serializable {
         this.imageURL = imageURL;
     }
 
-    public String getArtAuthor() { return artAuthor; }
+    public String getArtAuthor() {
+        return artAuthor;
+    }
 
     public void setArtAuthor(String artAuthor) {
         this.artAuthor = artAuthor;
     }
-
-
 
 
     @Override

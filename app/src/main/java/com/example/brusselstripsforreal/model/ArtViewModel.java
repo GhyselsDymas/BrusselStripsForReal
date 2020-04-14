@@ -72,7 +72,7 @@ public class ArtViewModel extends AndroidViewModel {
                     while (i < arraySize){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         JSONObject fields = jsonObject.getJSONObject("fields");
-                        JSONObject geometry = jsonObject.getJSONObject("coordinates");
+                        JSONObject geometry = jsonObject.getJSONObject("geometry");
                         JSONObject photo = (fields.has("photo"))?fields.getJSONObject("photo"):new JSONObject();
 
 
