@@ -28,8 +28,7 @@ import okhttp3.Response;
 public class ArtViewModel extends AndroidViewModel {
 
 
-
-    public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);
+    public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
     Context context;
 
     public ArtViewModel(@NonNull Application application) {
@@ -49,6 +48,7 @@ public class ArtViewModel extends AndroidViewModel {
     public void updateAllArt(ComicArt comicArt) {
         ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().updateComicArt(comicArt);
     }
+
     public ComicArt findArtById(String id) {
         return ArtDatabase.getSharedInstance(getApplication()).comicArtDAO().findById(id);
     }
@@ -72,31 +72,39 @@ public class ArtViewModel extends AndroidViewModel {
                     JSONObject rawData = new JSONObject(artData);
                     JSONArray jsonArray = rawData.getJSONArray("records");
 
-                  //  int arraySize = jsonArray.length();
-                 //   int i = 0;
+                    int arraySize = jsonArray.length();
+                    int i = 0;
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        String jsonComicArtID = jsonArray.getJSONObject(i).getString("recordid");
-                        JSONObject jsonComicArt = jsonArray.getJSONObject(i).getJSONObject("fields");
-                    final ComicArt currentArt = new ComicArt(
-                            jsonComicArtID,
-                            (jsonComicArt.has("auteur_s")) ? jsonComicArt.getString("auteur_s") : "Unknown author",
-                            (jsonComicArt.has("photo")) ? jsonComicArt.getJSONObject("photo").getString("filename") : "No Art available!",
-                            (jsonComicArt.has("photo")) ? jsonComicArt.getJSONObject("photo").getString("id") : "No Art available!",
-                            (jsonComicArt.has("personnage_s")) ? jsonComicArt.getString("personnage_s") : "Unknown pesonnage"
-                    );
+                    while (i < arraySize) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONObject fields = jsonObject.getJSONObject("fields");
+                        JSONObject geometry = jsonObject.getJSONObject("geometry");
+                        JSONObject photo = (fields.has("photo")) ? fields.getJSONObject("photo") : new JSONObject();
+
+
+                        final ComicArt currentArt = new ComicArt(
+
+                                (photo.has("id")) ? photo.getString("id") : "unknown",
+
+                                (fields.has("personnage_s")) ? fields.getString("personnage_s") : "unknown",
+                                (fields.has("auteur_s")) ? fields.getString("auteur_s") : "unknown",
+                                (geometry.has("coordinates")) ? geometry.getString("coordinates") : "unknown",
+                                (jsonObject.has("recordid")) ? jsonObject.getString("recordid") : "unknown"
+
+
+                        );
+
 
                         ArtDatabase.databaseWriteExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
-                                if(findArtById(currentArt.getComicArtId())== null){
+                                if (findArtById(currentArt.getComicArtId()) == null) {
                                     insertAllArt(currentArt);
                                 }
                             }
                         });
                         i++;
                     }
-
 
 
                 } catch (IOException e) {
@@ -109,19 +117,46 @@ public class ArtViewModel extends AndroidViewModel {
         });
     }
 }
-//while (i < arraySize){
-// JSONObject jsonObject = jsonArray.getJSONObject(i);
-// JSONObject fields = jsonObject.getJSONObject("fields");
-// JSONObject geometry = jsonObject.getJSONObject("geometry");
-// JSONObject photo = (fields.has("photo"))?fields.getJSONObject("photo"):new JSONObject();
 
 
-// final ComicArt currentArt = new ComicArt(
 
-// (photo.has("id"))?photo.getJSONObject("id").getString("id"):"unknown",
 
-// (fields.has("personnage_s"))?fields.getString("personnage_s"):"unknown",
-// (fields.has("auteur_s"))?fields.getString("auteur_s"):"unknown",
-// (geometry.has("coordinates"))?geometry.getString("coordinates"):"unknown",
-// (jsonObject.has("recordid"))?jsonObject.getString("recordid"):"unknown"
-//  );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+
+ for (int i = 0; i < jsonArray.length(); i++) {
+ String jsonComicArtID = jsonArray.getJSONObject(i).getString("recordid");
+ JSONObject jsonComicArt = jsonArray.getJSONObject(i).getJSONObject("fields");
+ final ComicArt currentArt = new ComicArt(
+ jsonComicArtID,
+ (jsonComicArt.has("auteur_s")) ? jsonComicArt.getString("auteur_s") : "Unknown author",
+ (jsonComicArt.has("photo")) ? jsonComicArt.getJSONObject("photo").getString("filename") : "No Art available!",
+ (jsonComicArt.has("photo")) ? jsonComicArt.getJSONObject("photo").getString("id") : "No Art available!",
+ (jsonComicArt.has("personnage_s")) ? jsonComicArt.getString("personnage_s") : "Unknown pesonnage"
+ );
+
+ */

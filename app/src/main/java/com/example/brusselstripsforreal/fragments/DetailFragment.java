@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        selectedComicArt = (ComicArt) getArguments().getSerializable("passedComicArt");
 
        titleTv = rootView.findViewById(R.id.title_detail_tv);
        authorTV = rootView.findViewById(R.id.author_details_tv);
@@ -54,8 +56,8 @@ public class DetailFragment extends Fragment {
 
             titleTv.setText(selectedComicArt.getArtTitle());
             authorTV.setText(selectedComicArt.getArtAuthor());
-
-            Picasso.get().load("https://opendata.brussel.be/explore/dataset/comic-book-route/files/"+selectedComicArt.getComicArtId()+"/300").into(photoIv);
+            Log.d("Image", selectedComicArt.getComicArtId());
+            Picasso.get().load("https://opendata.brussel.be/explore/dataset/striproute0/files/"+selectedComicArt.getImageURL()+"/download").into(photoIv);
         }
 
     return rootView;

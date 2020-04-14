@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import com.example.brusselstripsforreal.R;
 import com.example.brusselstripsforreal.model.ComicArt;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ import java.util.List;
         holder.tvArtAuthor.setText(currentArt.getArtAuthor());
         holder.tvArtTitle.setText(currentArt.getArtTitle());
 
-      // Picasso.get().load("https://opendata.brussel.be/explore/dataset/comic-book-route/files/ "+currentArt.getComicArtId()+"/download").into(holder.ivArtPhoto);
+      //Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/comic-book-route/files/ "+currentArt.getComicArtId()).into(holder.ivArtPhoto);
     }
 
 
