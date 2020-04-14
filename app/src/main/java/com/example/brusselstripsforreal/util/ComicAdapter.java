@@ -9,18 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import com.example.brusselstripsforreal.R;
 import com.example.brusselstripsforreal.model.ComicArt;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
  public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
@@ -28,12 +27,16 @@ import java.util.List;
 
     public class ComicViewHolder extends RecyclerView.ViewHolder {
         final TextView tvArtTitle, tvArtAuthor;
+        final ImageView ivArtPhoto;
+
+       final CardView comicArtView;
+
         final View.OnClickListener ArtDetailListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = getAdapterPosition();
                 Bundle data = new Bundle();
-                data.putSerializable("passedComicArt", items.get(position));
+                data.putSerializable("passedComicArt", itemsComics.get(position));
                 Navigation.findNavController(view).navigate(R.id.action_listFragment_to_detailFragment, data);
             }
         };
@@ -42,8 +45,15 @@ import java.util.List;
             super(itemView);
             tvArtTitle = itemView.findViewById(R.id.art_title_tv);
             tvArtAuthor = itemView.findViewById(R.id.art_author_tv);
+            ivArtPhoto = itemView.findViewById(R.id.detail_iv);
+
+            // detail button ?
+
+            comicArtView = itemView.findViewById(R.id.art_card_view);
+            comicArtView.setOnClickListener(ArtDetailListener);
         }
     }
+
     private  ArrayList<ComicArt> itemsComics;
     private ArrayList<ComicArt> items;
 
@@ -64,11 +74,11 @@ import java.util.List;
     @Override
     public void onBindViewHolder(@NonNull ComicViewHolder holder, int position) {
         //TODO Rijen opvullen
-        ComicArt c = items.get(position);
-        holder.tvArtAuthor.setText(c.getArtAuthor());
-        holder.tvArtTitle.setText(c.getArtTitle());
-       // holder.ivArt.setImageU();
-        //Picasso.get().load("https://opendata.brussel.be/explore/dataset/striproute0/files/"+c.getImageURL()+"/download").into(holder.ivArt);
+        final ComicArt currentArt = itemsComics.get(position);
+        holder.tvArtAuthor.setText(currentArt.getArtAuthor());
+        holder.tvArtTitle.setText(currentArt.getArtTitle());
+
+      //Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/comic-book-route/files/ "+currentArt.getComicArtId()).into(holder.ivArtPhoto);
     }
 
 
@@ -83,6 +93,7 @@ import java.util.List;
     public void addItems(List<ComicArt> comicart ){
         items.clear();
         items.addAll(comicart);
+        itemsComics = (ArrayList<ComicArt>) comicart;
 
     }
 
