@@ -1,13 +1,16 @@
 package com.example.brusselstripsforreal.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +45,7 @@ public class MapFragment extends Fragment {
 
 
 
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -51,6 +55,7 @@ public class MapFragment extends Fragment {
     private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
+
             myMap = googleMap;
 
             LatLng coordBrussel = new LatLng(50.858712, 4.347446);
@@ -58,31 +63,30 @@ public class MapFragment extends Fragment {
 
             CameraUpdate moveToBrussel = CameraUpdateFactory.newLatLngZoom(coordBrussel, 12);
             myMap.animateCamera(moveToBrussel);
-          //  myMap.setOnInfoWindowClickListener(infoWindowClickListener);
+            myMap.setOnInfoWindowClickListener(infoWindowClickListener);
 
+            //setMarkerAdapter();
             drawMarkers();
-          //  setMarkerAdapter();
-
         }
     };
- /**   private GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+    private GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
             ComicArt c = (ComicArt) marker.getTag();
-            if(c != null)
-                Toast.makeText(getActivity(), c.getArtTitle(), Toast.LENGTH_SHORT).show();
+            if(c != null){
+               Bundle data = new Bundle();
+                data.putSerializable("passedComicArt", c);
+                Navigation.findNavController(mapView).navigate(R.id.detailFragment, data);
+               // Toast.makeText(getActivity(), c.getArtTitle(), Toast.LENGTH_SHORT).show();
+                }
         }
     };
 
-    private void setMarkerAdapter() {
+   /** private void setMarkerAdapter() {
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                return null;
-            }
 
-            @Override
-            public View getInfoContents(Marker marker) {
                 View cardView = getActivity().getLayoutInflater().inflate(R.layout.comic_art_card, null, false);
 
                 TextView tvTitle = cardView.findViewById(R.id.art_title_tv);
@@ -93,6 +97,12 @@ public class MapFragment extends Fragment {
 
                 return cardView;
 
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                return null;
             }
         });
     }*/
@@ -109,9 +119,9 @@ public class MapFragment extends Fragment {
         model.getComicArt().observe(context, new Observer<List<ComicArt>>() {
             @Override
             public void onChanged(List<ComicArt> comicArts) {
-                for (ComicArt comicArt : comicArts) {
+                for (ComicArt currentArt : comicArts) {
                     //getten de coordinate als string, dus vierkante haakjes moeten weg
-                    String coords = comicArt.getCoordinate().replace("[", "").replace("]", "");
+                    String coords = currentArt.getCoordinate().replace("[", "").replace("]", "");
 
                     //array maken van de string om de 2 coordinaten van elkaar te onderscheiden
                     String[] latLng = coords.split(",");
@@ -122,9 +132,9 @@ public class MapFragment extends Fragment {
 
                     Marker m = myMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
 
-                    m.setTitle(comicArt.getArtTitle());
-                    m.setSnippet(comicArt.getArtAuthor());
-                    m.setTag(comicArt);
+                    m.setTitle(currentArt.getArtTitle());
+                    m.setSnippet(currentArt.getArtAuthor());
+                    m.setTag(currentArt);
                 }
             }
         });
@@ -144,7 +154,6 @@ public class MapFragment extends Fragment {
         mapView = rootview.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(onMapReady);
-
 
         return rootview;
     }
