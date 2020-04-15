@@ -22,11 +22,11 @@ public class ComicArt implements Serializable {
 
     public ComicArt(String imageURL, String artTitle, String artAuthor, String coordinate, String id, String artAnnee) {
         this.imageURL = imageURL;
-        this.artTitle = artTitle;
-        this.artAuthor = artAuthor;
+        this.artTitle = artTitle + " ";
+        this.artAuthor = artAuthor + " ";
         this.coordinate = coordinate;
         this.comicArtId = id;
-        this.artAnnee = artAnnee;
+        this.artAnnee = artAnnee + " ";
     }
 
     @NonNull
@@ -86,16 +86,17 @@ public class ComicArt implements Serializable {
     @Override
     public String toString() {
         return "ComicArt{" +
-                "imageURL='" + imageURL + '\'' +
+                "comicArtId='" + comicArtId + '\'' +
+                ", imageURL='" + imageURL + '\'' +
                 ", artTitle='" + artTitle + '\'' +
                 ", artAuthor='" + artAuthor + '\'' +
                 ", coordinate='" + coordinate + '\'' +
                 ", id='" + id + '\'' +
-                ", comicArtId=" + comicArtId +
-                ", annee=" + artAnnee +
+                ", artAnnee='" + artAnnee + '\'' +
                 '}';
     }
 }
+
 
 
 

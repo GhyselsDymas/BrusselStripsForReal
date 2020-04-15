@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
  */
 public class DetailFragment extends Fragment {
 
-    private TextView titleTv, authorTV;
+    private TextView titleTv, authorTV, yearTV;
     private ImageView photoIv;
     private FragmentActivity mContext;
     private ComicArt selectedComicArt;
@@ -51,15 +51,22 @@ public class DetailFragment extends Fragment {
        titleTv = rootView.findViewById(R.id.title_detail_tv);
        authorTV = rootView.findViewById(R.id.author_details_tv);
        photoIv = rootView.findViewById(R.id.detail_iv);
+       yearTV =  rootView.findViewById(+ R.id.year_detail_tv);
+
 
         if(selectedComicArt != null){
 
             titleTv.setText(selectedComicArt.getArtTitle());
             authorTV.setText(selectedComicArt.getArtAuthor());
+            yearTV.setText("Created in : "+selectedComicArt.getArtAnnee());
 
             Log.d("Image", selectedComicArt.getImageURL());
 
-            Picasso.get().load("https://opendata.brussel.be/explore/dataset/striproute0/files/"+selectedComicArt.getImageURL()+"/download").into(photoIv);
+            Picasso.get()
+                    .load("https://opendata.brussel.be/explore/dataset/striproute0/files/"+selectedComicArt.getImageURL()+"/download")
+                    .centerCrop()
+                    .resize(200, 200)
+                    .into(photoIv);
             //https://opendata.brussel.be/explore/dataset/striproute0/files/109079c2f860b91d84cf463f1ff9a8535a0b7f0a/download
         }
 

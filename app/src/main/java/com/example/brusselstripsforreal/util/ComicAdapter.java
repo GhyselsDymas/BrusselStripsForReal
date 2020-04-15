@@ -27,7 +27,7 @@ import java.util.List;
 
     public class ComicViewHolder extends RecyclerView.ViewHolder {
         final TextView tvArtTitle, tvArtAuthor;
-        final ImageView ivArtPhoto;
+        ;
 
        final CardView comicArtView;
 
@@ -45,7 +45,8 @@ import java.util.List;
             super(itemView);
             tvArtTitle = itemView.findViewById(R.id.art_title_tv);
             tvArtAuthor = itemView.findViewById(R.id.art_author_tv);
-            ivArtPhoto = itemView.findViewById(R.id.detail_iv);
+
+
 
             // detail button ?
 
@@ -78,7 +79,6 @@ import java.util.List;
         holder.tvArtAuthor.setText(currentArt.getArtAuthor());
         holder.tvArtTitle.setText(currentArt.getArtTitle());
 
-      //Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/comic-book-route/files/ "+currentArt.getComicArtId()).into(holder.ivArtPhoto);
     }
 
 
