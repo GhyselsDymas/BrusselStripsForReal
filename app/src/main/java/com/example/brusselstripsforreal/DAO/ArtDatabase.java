@@ -11,7 +11,7 @@ import com.example.brusselstripsforreal.model.ComicArt;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(version = 1, entities = {ComicArt.class}, exportSchema = false)
+@Database(version = 2, entities = {ComicArt.class}, exportSchema = false)
 public abstract class ArtDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "artDatabase.db";
