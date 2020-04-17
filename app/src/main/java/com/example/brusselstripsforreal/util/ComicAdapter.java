@@ -1,10 +1,13 @@
  package com.example.brusselstripsforreal.util;
 
+//Author Jochem Petit
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +25,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
- public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
+ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> implements Filterable {
 
 
     public class ComicViewHolder extends RecyclerView.ViewHolder {
         final TextView tvArtTitle, tvArtAuthor;
-        ;
+
 
        final CardView comicArtView;
 
@@ -75,7 +78,7 @@ import java.util.List;
     @Override
     public void onBindViewHolder(@NonNull ComicViewHolder holder, int position) {
         //TODO Rijen opvullen
-        final ComicArt currentArt = itemsComics.get(position);
+         ComicArt currentArt = itemsComics.get(position);
         holder.tvArtAuthor.setText(currentArt.getArtAuthor());
         holder.tvArtTitle.setText(currentArt.getArtTitle());
 
@@ -93,10 +96,37 @@ import java.util.List;
     public void addItems(List<ComicArt> comicart ){
         items.clear();
         items.addAll(comicart);
-        itemsComics = (ArrayList<ComicArt>) comicart;
+        itemsComics.clear();
+        itemsComics.addAll(comicart);
 
     }
+     @Override
+     public Filter getFilter() {
+         return new Filter() {
+             @Override
+             protected FilterResults performFiltering(CharSequence charSequence) {
+                 String input = charSequence.toString();
+                 items = itemsComics;
+                 if (!input.isEmpty()) {
+                     ArrayList<ComicArt> tempList = new ArrayList<>();
 
+                     for (ComicArt element : items) {
+                         if (element.getArtTitle().contains(input)) {
+                             tempList.add(element);
+                         }
+                     }
+                     items = tempList;
+                 }
+                 return null;
+             }
+
+             @Override
+             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                 notifyDataSetChanged();
+             }
+         };
+
+     }
 }
 
 

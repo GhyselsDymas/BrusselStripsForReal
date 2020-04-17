@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
 
+//Author: Dymas Ghysels
 @Entity
 public class ComicArt implements Serializable {
 

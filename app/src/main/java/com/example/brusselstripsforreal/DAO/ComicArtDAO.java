@@ -1,6 +1,6 @@
 package com.example.brusselstripsforreal.DAO;
 
-
+// Author: Jochem Petit
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;

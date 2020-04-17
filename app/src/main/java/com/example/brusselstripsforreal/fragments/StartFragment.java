@@ -19,8 +19,9 @@ import com.example.brusselstripsforreal.DAO.ArtDatabase;
 import com.example.brusselstripsforreal.DAO.ComicArtDAO;
 import com.example.brusselstripsforreal.R;
 import com.example.brusselstripsforreal.model.ArtViewModel;
-import com.example.brusselstripsforreal.model.ComicArt;
+import com.example.brusselstripsforreal.model.ComicArt;//
 
+//Author: Dymas Ghysels
 /**
  * A simple {@link Fragment} subclass.
  */

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.brusselstripsforreal.R;
 
+//Author: Dymas Ghysels
 /**
  * A simple {@link Fragment} subclass.
  */

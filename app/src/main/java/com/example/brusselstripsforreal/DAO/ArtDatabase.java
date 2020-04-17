@@ -1,5 +1,6 @@
 package com.example.brusselstripsforreal.DAO;
 
+// Author: Seppe Alpaerts
 import android.content.Context;
 
 import androidx.room.Database;

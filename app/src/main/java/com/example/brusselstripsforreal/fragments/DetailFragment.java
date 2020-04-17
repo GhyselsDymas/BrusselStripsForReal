@@ -18,7 +18,7 @@ import com.example.brusselstripsforreal.R;
 import com.example.brusselstripsforreal.model.ComicArt;
 import com.squareup.picasso.Picasso;
 
-
+//Author: Jochem Petit
 /**
  * A simple {@link Fragment} subclass.
  */

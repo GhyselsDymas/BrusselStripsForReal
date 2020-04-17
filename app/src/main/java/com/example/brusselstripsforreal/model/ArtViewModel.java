@@ -22,7 +22,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
+//Author: Dymas Ghysels & Jochem Petit
 public class ArtViewModel extends AndroidViewModel {
 
     public ExecutorService threadExecutor= Executors.newFixedThreadPool(4);

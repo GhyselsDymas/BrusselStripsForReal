@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+//Author : Seppe Alpaerts
 /**
  * A simple {@link Fragment} subclass.
  */

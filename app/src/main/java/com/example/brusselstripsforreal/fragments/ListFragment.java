@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.Observer;
@@ -25,13 +27,29 @@ import com.example.brusselstripsforreal.util.ComicAdapter;
 
 import java.util.List;
 
-
+//Author: Jochem Petit
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ListFragment extends Fragment {
 
     private AppCompatActivity context;
+
+
+
+    private SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            adapter.getFilter().filter(newText);
+            return false;
+        }
+    };
 
     public ListFragment() {
 
@@ -52,6 +70,8 @@ public class ListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
         RecyclerView rvArt  = rootView.findViewById(R.id.comicArt_rv);
+        SearchView searchView = rootView.findViewById(R.id.searchview);
+        searchView.setOnQueryTextListener(searchListener);
 
         rvArt.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 

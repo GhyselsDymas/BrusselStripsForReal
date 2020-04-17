@@ -28,6 +28,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
+        android:fontFamily="@font/bangers"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="20sp"

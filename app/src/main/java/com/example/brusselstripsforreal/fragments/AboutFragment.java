@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.brusselstripsforreal.R;
-
+// Seppe Alpaerts
 /**
  * A simple {@link Fragment} subclass.
  */
